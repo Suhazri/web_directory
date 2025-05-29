@@ -1,0 +1,18 @@
+AuthType Basic
+AuthName "Restricted Content - Please Login"
+# IMPORTANT: The AuthUserFile path below is a placeholder.
+# It MUST be an absolute server path to your .htpasswd file.
+# For optimal security, the .htpasswd file should be stored OUTSIDE the web document root.
+# This path will be dynamically updated or managed by a configuration script (e.g., config.php) in a later stage.
+# For this setup, it's derived from HTPASSWD_PATH in config.php
+AuthUserFile /app/.htpasswd
+Require valid-user
+
+# Protect sensitive files from being viewed by browsers
+<Files ".ht*">
+    Require all denied
+</Files>
+
+<Files "config.php">
+    Require all denied
+</Files>

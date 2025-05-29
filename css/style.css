@@ -5,35 +5,51 @@
     box-sizing: border-box;
 }
 
+/* General body styles - provides a default flex centering for standalone forms if any were to exist outside a specific view */
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
     background-color: #f4f4f4;
-    display: flex;
+    display: flex; /* Default for centering a single form (e.g., if a login page was standalone) */
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     color: #333;
+    line-height: 1.6;
 }
 
-form {
+/* Overrides for specific views to ensure normal page flow */
+body.view-default,
+body.view-admin-panel,
+body.view-admin-login { /* view-admin-login also needs block display for its container */
+    display: block;
+    align-items: initial;
+    justify-content: initial;
+}
+
+/* Specific background for admin views */
+body.view-admin-panel,
+body.view-admin-login {
+    background-color: #f8f9fa;
+}
+
+
+/* General form styling (primarily for old login.php, now for admin-login form) */
+form { 
     background-color: #fff;
     padding: 20px 40px;
     border-radius: 8px;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     width: 100%;
-    max-width: 400px;
+    max-width: 400px; /* Default max-width for centered forms */
 }
-
 form div {
     margin-bottom: 15px;
 }
-
 label {
     display: block;
     margin-bottom: 5px;
     font-weight: bold;
 }
-
 input[type="text"],
 input[type="password"] {
     width: 100%;
@@ -42,15 +58,13 @@ input[type="password"] {
     border-radius: 4px;
     font-size: 16px;
 }
-
 input[type="text"]:focus,
 input[type="password"]:focus {
     outline: none;
     border-color: #007bff;
     box-shadow: 0 0 0 0.2rem rgba(0,123,255,.25);
 }
-
-button[type="submit"] {
+button[type="submit"] { /* General submit button style */
     background-color: #007bff;
     color: white;
     padding: 10px 15px;
@@ -61,82 +75,101 @@ button[type="submit"] {
     width: 100%;
     transition: background-color 0.3s ease;
 }
-
 button[type="submit"]:hover {
     background-color: #0056b3;
 }
 
-/* Error Message Styling */
+/* Messages Styling */
 .error-message {
-    color: #D8000C; /* Red text */
-    background-color: #FFD2D2; /* Light red background */
+    color: #D8000C; 
+    background-color: #FFD2D2; 
     border: 1px solid #D8000C;
     padding: 10px;
     margin-bottom: 20px;
     border-radius: 4px;
     text-align: center;
 }
-
-/* Responsive adjustments */
-@media (max-width: 480px) {
-    form {
-        padding: 20px;
-    }
+.success-message {
+    color: #155724; 
+    background-color: #D4EDDA; 
+    border: 1px solid #C3E6CB;
+    padding: 10px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+    text-align: center;
 }
 
-/* Dashboard Specific Styles */
+/* General Button Classes */
+.button { 
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    text-decoration: none; 
+    display: inline-block;
+    transition: background-color 0.3s ease;
+}
+.button:hover {
+    background-color: #0056b3;
+}
+.button-delete { 
+    background-color: #dc3545;
+    color: white; 
+}
+.button-delete:hover {
+    background-color: #c82333;
+}
+
+/* Shared Container and Header/Main Styles (for view-default and view-admin-panel) */
 .container {
-    width: 90%; /* Adjusted for better use of space on smaller screens */
+    width: 90%; 
     max-width: 960px;
-    margin: 20px auto; /* Centers the container and adds some space on top/bottom */
+    margin: 20px auto; 
     padding: 20px;
     background-color: #fff;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
 }
-
-.dashboard-header {
+.dashboard-header { /* Used by both default view and admin panel view */
     padding-bottom: 10px;
     margin-bottom: 20px;
     border-bottom: 1px solid #eee;
-    display: flex; /* Use flexbox to align items */
-    justify-content: space-between; /* Puts h1 on left, p on right */
-    align-items: center; /* Vertically aligns items in the middle */
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center; 
 }
-
 .dashboard-header h1 {
     color: #333;
     font-size: 24px;
-    margin-bottom: 5px; /* Add some space if stacking */
+    margin-bottom: 5px; 
 }
-
 .dashboard-header p {
     font-size: 16px;
-    text-align: right; /* Keep logout to the right if space allows */
+    text-align: right; 
 }
-
 .dashboard-header a {
     color: #007bff;
     text-decoration: none;
     font-weight: bold;
 }
-
 .dashboard-header a:hover {
     text-decoration: underline;
 }
-
-.dashboard-main h2 {
+.dashboard-main h2 { /* Used by both default view and admin panel view */
     color: #333;
     margin-bottom: 15px;
     font-size: 20px;
 }
 
-.directory-list {
-    list-style: none; /* Removes default bullet points */
+/* Styles for Default User View (body.view-default) */
+body.view-default .directory-list { 
+    list-style: none; 
     padding: 0;
 }
-
-.directory-list li {
+body.view-default .directory-list li {
     background-color: #f9f9f9;
     border: 1px solid #eee;
     padding: 10px;
@@ -145,58 +178,157 @@ button[type="submit"]:hover {
     font-size: 16px;
     color: #555;
 }
-
-.directory-list li:hover {
+body.view-default .directory-list li:hover {
     background-color: #f1f1f1;
 }
 
-/* Adjust body for dashboard view - remove flex centering if it causes issues with full-page layout */
-body.dashboard-view {
-    display: block; /* Override flex to allow normal page flow */
-    align-items: initial;
-    justify-content: initial;
+/* Styles for Admin Login View (body.view-admin-login) */
+body.view-admin-login .admin-login-container { 
+    background-color: #fff; /* Uses general form styling for the form itself */
+    padding: 30px 40px;
+    border-radius: 8px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    width: 100%;
+    max-width: 450px; /* Consistent with general form max-width */
+    margin: 60px auto; /* Centering */
+}
+body.view-admin-login .admin-login-container h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: #333;
+}
+/* The form inside .admin-login-container will pick up the general 'form' styles */
+
+
+/* Styles for Admin Panel View (body.view-admin-panel) */
+body.view-admin-panel section {
+    margin-bottom: 30px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+body.view-admin-panel section h2 { 
+    margin-top: 0;
+    margin-bottom: 15px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+}
+body.view-admin-panel section + section { 
+    margin-top: 40px; 
 }
 
-/* Responsive adjustments for Dashboard */
-@media (max-width: 768px) {
-    .container {
+/* Styling for forms within admin panel sections (e.g., Add User form) */
+body.view-admin-panel section > form { 
+    max-width: 100%; /* Override general form max-width */
+    background-color: #fdfdfd;
+    padding: 20px;
+    border: 1px solid #e0e0e0;
+    box-shadow: none; 
+    margin-bottom: 0; 
+}
+body.view-admin-panel section > form h2 { 
+    margin-top: 0; 
+    margin-bottom: 20px;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+}
+body.view-admin-panel section > form button[type="submit"] { 
+    width: 100%; 
+}
+
+/* Styles for Admin Panel User List */
+body.view-admin-panel .user-list {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px; 
+}
+body.view-admin-panel .user-list li {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0; 
+    border-bottom: 1px solid #eee;
+}
+body.view-admin-panel .user-list li:last-child {
+    border-bottom: none;
+}
+body.view-admin-panel .user-list .username-display {
+    flex-grow: 1; 
+    color: #333;
+    font-size: 1.0em;
+}
+body.view-admin-panel .user-list .delete-user-form { /* This is the <form> tag itself */
+    margin-left: 15px; 
+    display: inline; 
+    background-color: transparent !important; 
+    padding: 0 !important; 
+    border: none !important; 
+    box-shadow: none !important; 
+    margin-bottom: 0 !important; 
+    width: auto !important; 
+    max-width: none !important; 
+}
+body.view-admin-panel .user-list .delete-user-form .button-delete { 
+    padding: 5px 10px; 
+    font-size: 0.9em;   
+}
+
+/* Admin messages placeholder adjustments (global, but often used in admin views) */
+#admin-messages-placeholder-fixed .error-message, /* ID used in index.php for fixed messages */
+#admin-messages-placeholder-fixed .success-message { 
+    margin-top: 0; 
+    margin-bottom: 0; /* No margin as placeholder div handles it */
+}
+
+
+/* Responsive Adjustments */
+@media (max-width: 768px) { 
+    .container { /* Affects view-default and view-admin-panel */
         width: 95%;
         padding: 15px;
     }
-    .dashboard-header h1 {
+    .dashboard-header h1 { 
         font-size: 20px;
     }
-    .dashboard-header p {
+    .dashboard-header p { 
         font-size: 14px;
     }
 }
 
 @media (max-width: 480px) {
-    .dashboard-header {
-        flex-direction: column; /* Stack header elements */
-        align-items: flex-start; /* Align to start when stacked */
+    form { /* General form padding for small screens, applies to admin-login form too */
+        padding: 20px;
+    }
+    .dashboard-header { 
+        flex-direction: column; 
+        align-items: flex-start; 
     }
     .dashboard-header h1 {
-        margin-bottom: 10px; /* Space between stacked h1 and p */
+        margin-bottom: 10px; 
     }
     .dashboard-header p {
-        text-align: left; /* Align logout to left when stacked */
-        width: 100%; /* Ensure it takes full width if needed */
+        text-align: left; 
+        width: 100%; 
     }
-
-    .container {
+    .container { 
         width: 100%;
         margin: 10px auto;
         padding: 10px;
-        border-radius: 0; /* Optional: full width on very small screens */
+        border-radius: 0; 
     }
-
-    .dashboard-main h2 {
+    .dashboard-main h2 { 
         font-size: 18px;
     }
-
-    .directory-list li {
+    body.view-default .directory-list li { 
         font-size: 14px;
         padding: 8px;
+    }
+    body.view-admin-panel .user-list .username-display {
+        font-size: 0.95em;
+    }
+    body.view-admin-panel .user-list .delete-user-form .button-delete {
+        font-size: 0.85em;
+        padding: 4px 8px;
     }
 }
